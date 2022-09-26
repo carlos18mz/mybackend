@@ -1,7 +1,9 @@
 package com.nttdata.mybackend.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -20,7 +22,7 @@ public class Client extends Person {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @Column(name = "password")
@@ -28,6 +30,9 @@ public class Client extends Person {
 
   @Column(name = "state")
   private Boolean state;
+
+  @OneToMany(mappedBy = "client")
+  private List<Account> accounts = new ArrayList<>();
 
   public Client(String name, Boolean genre, Integer age, String direction, String phone, String identification, String password, Boolean state) {
     super(name, genre, age, direction, phone, identification);

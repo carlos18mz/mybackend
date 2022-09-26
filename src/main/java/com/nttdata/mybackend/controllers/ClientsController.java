@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.mybackend.models.Client;
 import com.nttdata.mybackend.resources.inputs.ClientInput;
+import com.nttdata.mybackend.resources.outputs.ClientOutput;
 import com.nttdata.mybackend.servicesImpl.ClientService;
 
 @CrossOrigin
@@ -26,8 +27,8 @@ public class ClientsController {
   @PostMapping
   public ResponseEntity<?> createClient(@RequestBody ClientInput clientInput) {
     try {
-      Client result = clientService.save(new Client(clientInput.getName(), clientInput.getGenre(), clientInput.getAge(), clientInput.getDirection(), clientInput.getPhone(), clientInput.getIdentification(), clientInput.getPassword(), clientInput.getState()));
-      return new ResponseEntity<Client>(result, HttpStatus.OK);
+      ClientOutput result = clientService.save(null, new Client(clientInput.getName(), clientInput.getGenre(), clientInput.getAge(), clientInput.getDirection(), clientInput.getPhone(), clientInput.getIdentification(), clientInput.getPassword(), clientInput.getState()));
+      return new ResponseEntity<ClientOutput>(result, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
     }
@@ -36,8 +37,8 @@ public class ClientsController {
   @PutMapping("/{clientId}")
   public ResponseEntity<?> updateClient(@PathVariable(value = "clientId")int clientId, @RequestBody ClientInput clientInput) {
     try {
-      Client result = clientService.update(clientId, clientInput);
-      return new ResponseEntity<Client>(result, HttpStatus.OK);
+      ClientOutput result = clientService.update(clientId, clientInput);
+      return new ResponseEntity<ClientOutput>(result, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
     }
@@ -52,4 +53,6 @@ public class ClientsController {
       return new ResponseEntity<>(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
     }
   }
+
+  
 }

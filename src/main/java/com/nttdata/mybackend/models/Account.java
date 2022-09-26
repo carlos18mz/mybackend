@@ -1,5 +1,7 @@
 package com.nttdata.mybackend.models;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -21,10 +23,10 @@ public class Account implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id  
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name="account_number")
+  @Column(name="account_number", unique=true)
   private String accountNumber;
 
   @Column(name="account_type")
@@ -35,6 +37,13 @@ public class Account implements Serializable {
 
   @Column(name="state")
   private Boolean state;
+
+  @ManyToOne()
+  @JoinColumn(name = "client_id")
+  Client client;
+
+  @OneToMany(mappedBy = "account")
+  private List<Movement> movements = new ArrayList<>();
 
   public Account(String accountNumber, String accountType, float initialAmount, Boolean state) {
     this.accountNumber = accountNumber;

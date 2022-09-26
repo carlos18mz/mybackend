@@ -10,4 +10,5 @@ public class AccountInput {
   private String accountType;  
   private float initialAmount;
   private Boolean state;
+  private Integer clientId;
 }

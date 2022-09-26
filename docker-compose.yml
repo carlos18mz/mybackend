@@ -19,7 +19,7 @@ services:
     depends_on:
       - mysqldb
     restart: always
-    image: mybackend
+    image: hollowmask18/mybackend:latest
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/bootdb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
       SPRING_DATASOURCE_USERNAME: "root"

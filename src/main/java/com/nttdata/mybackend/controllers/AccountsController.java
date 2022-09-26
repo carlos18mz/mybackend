@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.mybackend.models.Account;
 import com.nttdata.mybackend.resources.inputs.AccountInput;
+import com.nttdata.mybackend.resources.outputs.AccountOutput;
 import com.nttdata.mybackend.servicesImpl.AccountService;
 
 @CrossOrigin
@@ -28,8 +29,8 @@ public class AccountsController {
   @PostMapping
   public ResponseEntity<?> createAccount(@RequestBody AccountInput accountInput) {
     try {
-      Account result = accountService.save(new Account(accountInput.getAccountNumber(), accountInput.getAccountType(), accountInput.getInitialAmount(), accountInput.getState()));
-      return new ResponseEntity<Account>(result, HttpStatus.OK);
+      AccountOutput result = accountService.save(accountInput.getClientId(), new Account(accountInput.getAccountNumber(), accountInput.getAccountType(), accountInput.getInitialAmount(), accountInput.getState()));
+      return new ResponseEntity<AccountOutput>(result, HttpStatus.OK);
     } catch(Exception e){
       return new ResponseEntity<>(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
     }
@@ -38,8 +39,8 @@ public class AccountsController {
   @PutMapping("/{accountId}")
   public ResponseEntity<?> updateAccount(@PathVariable(value = "accountId")int accountId, @RequestBody AccountInput accountInput) {
     try {
-      Account account = accountService.update(accountId, accountInput);
-      return new ResponseEntity<Account>(account, HttpStatus.OK);
+      AccountOutput result = accountService.update(accountId, accountInput);
+      return new ResponseEntity<AccountOutput>(result, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
     }
@@ -55,4 +56,5 @@ public class AccountsController {
     }
   }
 
+ 
 }

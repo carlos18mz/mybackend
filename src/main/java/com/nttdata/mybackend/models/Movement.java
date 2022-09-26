@@ -21,7 +21,7 @@ public class Movement implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   public Integer id;
   
   @CreatedDate
@@ -36,6 +36,10 @@ public class Movement implements Serializable {
 
   @Column(name = "amount")
   public float amount;
+
+  @ManyToOne()
+  @JoinColumn(name = "account_id")
+  Account account;
 
   public Movement(Date date, String type, float value, float amount) {
     this.date = date;

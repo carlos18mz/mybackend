@@ -19,16 +19,16 @@ public class Person implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @Column(name = "name")
   private String name;
 
-  @Column(name = "genre")
+  @Column(name = "genre", nullable = true)
   private Boolean genre;
 
-  @Column(name = "age")
+  @Column(name = "age", nullable = true)
   private Integer age;
 
   @Column(name = "direction")
